@@ -1,0 +1,42 @@
+syntax = "v1"
+
+info(
+	author: "liyunwen"
+	date:   "2022-12-11"
+	desc:   "api语法示例及语法说明"
+)
+
+type (
+	UserInfoReq {
+		UserId int64 `form:"userId"`
+	}
+	UserInfoResp {
+		UserId   int64  `json:"userId"`
+		Nickname string `json:"nickname"`
+	}
+)
+
+type (
+	UserUpdateReq {
+		UserId   int64  `json:"userId"`
+		Nickname string `json:"nickname"`
+	}
+	UserUpdateResp {
+		Flag bool `json:"flag"`
+	}
+)
+
+@server(
+	group: user
+	prefix: userapi/v1
+)
+
+service user-api{
+	@doc "获取用户信息"
+	@handler userInfo
+	get /user/info (UserInfoReq) returns (UserInfoResp)
+	
+	@doc "修改用户信息"
+	@handler userUpdate
+	post /user/update (UserUpdateReq) returns (UserUpdateResp)
+}
