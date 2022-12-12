@@ -18,3 +18,12 @@ type UserUpdateReq struct {
 type UserUpdateResp struct {
 	Flag bool `json:"flag"`
 }
+
+type UserCreateReq struct {
+	Nickname string `json:"nickname"`
+	Mobile   string `json:"mobile"`
+}
+
+type UserCreateResp struct {
+	Flag bool `json:"flag"`
+}

@@ -12,13 +12,18 @@ tables=$2
 modeldir=./model
 
 # 数据库配置
-host=127.0.0.1
+#host=127.0.0.1
+#port=3306
+#dbname=$1
+#username=root
+#passwd=cctv1164
+
+host=192.168.1.108
 port=3306
 dbname=$1
 username=root
-passwd=cctv1164
-
+passwd=111111
 
 echo "开始创建库：$dbname 的表：$2"
 #goctl model mysql datasource -url="${username}:${passwd}@tcp(${host}:${port})/${dbname}" -table="${tables}"  -dir="${modeldir}" -cache=true --style=goZero
-goctl model mysql datasource -url="${username}:${passwd}@tcp(${host}:${port})/${dbname}" -table="${tables}"  -dir="${modeldir}" --style=goZero
+goctl model mysql datasource -url="${username}:${passwd}@tcp(${host}:${port})/${dbname}" -table="${tables}"  -dir="${modeldir}" -cache=true --style=goZero

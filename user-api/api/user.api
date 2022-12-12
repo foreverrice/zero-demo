@@ -26,6 +26,16 @@ type (
 	}
 )
 
+type (
+	UserCreateReq {
+		Nickname string `json:"nickname"`
+		Mobile   string `json:"mobile"`
+	}
+	UserCreateResp {
+		Flag bool `json:"flag"`
+	}
+)
+
 @server(
 	group: user
 	prefix: userapi/v1
@@ -39,4 +49,8 @@ service user-api{
 	@doc "修改用户信息"
 	@handler userUpdate
 	post /user/update (UserUpdateReq) returns (UserUpdateResp)
+	
+	@doc "新增用户信息"
+	@handler userCreate
+	post /user/create (UserCreateReq) returns (UserCreateResp)
 }
