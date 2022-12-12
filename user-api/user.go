@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"zero-demo/middleware"
 
 	"zero-demo/user-api/internal/config"
 	"zero-demo/user-api/internal/handler"
@@ -22,6 +23,9 @@ func main() {
 
 	server := rest.MustNewServer(c.RestConf)
 	defer server.Stop()
+
+	// global middleware
+	server.Use(middleware.NewGlobalMiddleware().Handle)
 
 	ctx := svc.NewServiceContext(c)
 	handler.RegisterHandlers(server, ctx)

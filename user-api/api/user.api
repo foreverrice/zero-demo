@@ -39,6 +39,7 @@ type (
 @server(
 	group: user
 	prefix: userapi/v1
+	middleware: TestMiddleware
 )
 
 service user-api{
