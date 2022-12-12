@@ -14,5 +14,5 @@ message GetUserInfoResp {
 
 //service
 service usercenter {
-  rpc login(GetUserInfoReq) returns(GetUserInfoResp);
+  rpc GetUserInfo(GetUserInfoReq) returns(GetUserInfoResp);
 }

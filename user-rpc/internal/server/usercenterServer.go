@@ -22,7 +22,7 @@ func NewUsercenterServer(svcCtx *svc.ServiceContext) *UsercenterServer {
 	}
 }
 
-func (s *UsercenterServer) Login(ctx context.Context, in *pb.GetUserInfoReq) (*pb.GetUserInfoResp, error) {
-	l := logic.NewLoginLogic(ctx, s.svcCtx)
-	return l.Login(in)
+func (s *UsercenterServer) GetUserInfo(ctx context.Context, in *pb.GetUserInfoReq) (*pb.GetUserInfoResp, error) {
+	l := logic.NewGetUserInfoLogic(ctx, s.svcCtx)
+	return l.GetUserInfo(in)
 }

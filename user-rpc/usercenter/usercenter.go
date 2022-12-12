@@ -17,7 +17,7 @@ type (
 	GetUserInfoResp = pb.GetUserInfoResp
 
 	Usercenter interface {
-		Login(ctx context.Context, in *GetUserInfoReq, opts ...grpc.CallOption) (*GetUserInfoResp, error)
+		GetUserInfo(ctx context.Context, in *GetUserInfoReq, opts ...grpc.CallOption) (*GetUserInfoResp, error)
 	}
 
 	defaultUsercenter struct {
@@ -31,7 +31,7 @@ func NewUsercenter(cli zrpc.Client) Usercenter {
 	}
 }
 
-func (m *defaultUsercenter) Login(ctx context.Context, in *GetUserInfoReq, opts ...grpc.CallOption) (*GetUserInfoResp, error) {
+func (m *defaultUsercenter) GetUserInfo(ctx context.Context, in *GetUserInfoReq, opts ...grpc.CallOption) (*GetUserInfoResp, error) {
 	client := pb.NewUsercenterClient(m.cli.Conn())
-	return client.Login(ctx, in, opts...)
+	return client.GetUserInfo(ctx, in, opts...)
 }
