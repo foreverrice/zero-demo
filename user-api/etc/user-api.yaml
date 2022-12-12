@@ -2,6 +2,16 @@ Name: user-api
 Host: 0.0.0.0
 Port: 8888
 
+Log:
+  ServiceName: user-api
+  #Mode: console
+
+  Mode: file
+  Path: logs
+
+  Level: info
+  Encoding: plain
+
 DB:
   #DataSource: root:cctv1164@tcp(localhost:3306)/shop?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
   DataSource: root:111111@tcp(192.168.1.108:3306)/test_study?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai

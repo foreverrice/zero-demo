@@ -2,12 +2,12 @@ package user
 
 import (
 	"context"
-	"errors"
 	"zero-demo/model"
 
 	"zero-demo/user-api/internal/svc"
 	"zero-demo/user-api/internal/types"
 
+	"github.com/pkg/errors"
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -26,6 +26,10 @@ func NewUserInfoLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UserInfo
 }
 
 func (l *UserInfoLogic) UserInfo(req *types.UserInfoReq) (resp *types.UserInfoResp, err error) {
+	if err := l.testOne(); err != nil {
+		logx.Errorf("err : %+v", err)
+	}
+
 	user, err := l.svcCtx.UserModel.FindOne(l.ctx, req.UserId)
 
 	if err != nil && err != model.ErrNotFound {
@@ -40,4 +44,16 @@ func (l *UserInfoLogic) UserInfo(req *types.UserInfoReq) (resp *types.UserInfoRe
 		UserId:   user.Id,
 		Nickname: user.Nickname,
 	}, nil
+}
+
+func (l *UserInfoLogic) testOne() error {
+	return l.testTwo()
+}
+
+func (l *UserInfoLogic) testTwo() error {
+	return l.testThree()
+}
+
+func (l *UserInfoLogic) testThree() error {
+	return errors.Wrap(errors.New("这是故意的"), "enen")
 }
