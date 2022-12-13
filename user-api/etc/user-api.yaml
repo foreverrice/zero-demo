@@ -20,13 +20,13 @@ Cache:
     Pass:
 
 # api通过etcd连接rpc
-#UserRpcConf:
-#  Etcd:
-#    Hosts:
-#      - 127.0.0.1:2379
-#    Key: user.rpc
+UserRpcConf:
+  Etcd:
+    Hosts:
+      - 127.0.0.1:2379
+    Key: user.rpc
 
 # api直连
-UserRpcConf:
-  Endpoints:
-    - 127.0.0.1:9080
+#UserRpcConf:
+#  Endpoints:
+#    - 127.0.0.1:9080

@@ -9,6 +9,7 @@ import (
 	"zero-demo/user-rpc/internal/svc"
 	"zero-demo/user-rpc/pb"
 
+	"context"
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/core/service"
 	"github.com/zeromicro/go-zero/zrpc"
@@ -35,6 +36,22 @@ func main() {
 	})
 	defer s.Stop()
 
+	// 拦截器
+	s.AddUnaryInterceptors(TestServerInterceptor)
+
 	fmt.Printf("Starting rpc server at %s...\n", c.ListenOn)
 	s.Start()
+}
+
+func TestServerInterceptor(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (resp interface{}, err error) {
+	fmt.Printf("TestServerInterceptor ===> start \n")
+
+	fmt.Printf("req ===> %+v \n", req)
+	fmt.Printf("info ===> %+v \n", info)
+
+	resp, err = handler(ctx, req)
+
+	fmt.Printf("TestServerInterceptor ===> end \n")
+
+	return resp, err
 }

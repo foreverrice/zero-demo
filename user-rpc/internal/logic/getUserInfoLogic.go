@@ -2,6 +2,7 @@ package logic
 
 import (
 	"context"
+	"fmt"
 
 	"zero-demo/user-rpc/internal/svc"
 	"zero-demo/user-rpc/pb"
@@ -25,6 +26,7 @@ func NewGetUserInfoLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetUs
 
 func (l *GetUserInfoLogic) GetUserInfo(in *pb.GetUserInfoReq) (*pb.GetUserInfoResp, error) {
 	user, err := l.svcCtx.UserModel.FindOne(l.ctx, in.Id)
+	fmt.Println("GetUserInfo come in")
 	if err != nil {
 		return nil, err
 	}
