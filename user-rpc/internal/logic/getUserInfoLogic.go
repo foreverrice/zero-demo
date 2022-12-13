@@ -3,6 +3,7 @@ package logic
 import (
 	"context"
 	"fmt"
+	"google.golang.org/grpc/metadata"
 
 	"zero-demo/user-rpc/internal/svc"
 	"zero-demo/user-rpc/pb"
@@ -25,6 +26,12 @@ func NewGetUserInfoLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetUs
 }
 
 func (l *GetUserInfoLogic) GetUserInfo(in *pb.GetUserInfoReq) (*pb.GetUserInfoResp, error) {
+	// metadata跨服务传输
+	if md, ok := metadata.FromIncomingContext(l.ctx); ok {
+		tmp := md.Get("username")
+		fmt.Printf("tmp: %+v \n", tmp)
+	}
+
 	user, err := l.svcCtx.UserModel.FindOne(l.ctx, in.Id)
 	fmt.Println("GetUserInfo come in")
 	if err != nil {
