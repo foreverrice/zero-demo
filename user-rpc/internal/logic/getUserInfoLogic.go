@@ -24,20 +24,12 @@ func NewGetUserInfoLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetUs
 }
 
 func (l *GetUserInfoLogic) GetUserInfo(in *pb.GetUserInfoReq) (*pb.GetUserInfoResp, error) {
-	// todo: add your logic here and delete this line
-	m := map[int64]string{
-		1: "张三",
-		2: "赵六",
+	user, err := l.svcCtx.UserModel.FindOne(l.ctx, in.Id)
+	if err != nil {
+		return nil, err
 	}
-
-	nickname := "unknown"
-
-	if p, ok := m[in.Id]; ok {
-		nickname = p
-	}
-
 	return &pb.GetUserInfoResp{
-		Id:       in.Id,
-		Nickname: nickname,
+		Id:       user.Id,
+		Nickname: user.Nickname,
 	}, nil
 }
