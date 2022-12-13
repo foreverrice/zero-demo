@@ -18,3 +18,9 @@ DB:
 Cache:
   - Host: 192.168.1.108:6379
     Pass:
+
+UserRpcConf:
+  Etcd:
+    Hosts:
+      - 127.0.0.1:2379
+    Key: user.rpc

@@ -2,10 +2,9 @@ package user
 
 import (
 	"context"
-	"zero-demo/model"
-
 	"zero-demo/user-api/internal/svc"
 	"zero-demo/user-api/internal/types"
+	"zero-demo/user-rpc/pb"
 
 	"github.com/pkg/errors"
 	"github.com/zeromicro/go-zero/core/logx"
@@ -26,7 +25,7 @@ func NewUserInfoLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UserInfo
 }
 
 func (l *UserInfoLogic) UserInfo(req *types.UserInfoReq) (resp *types.UserInfoResp, err error) {
-	if err := l.testOne(); err != nil {
+	/*if err := l.testOne(); err != nil {
 		logx.Errorf("err : %+v", err)
 	}
 
@@ -43,6 +42,20 @@ func (l *UserInfoLogic) UserInfo(req *types.UserInfoReq) (resp *types.UserInfoRe
 	return &types.UserInfoResp{
 		UserId:   user.Id,
 		Nickname: user.Nickname,
+	}, nil*/
+
+	// rpc调用
+	userResp, err := l.svcCtx.UserRpc.GetUserInfo(l.ctx, &pb.GetUserInfoReq{
+		Id: req.UserId,
+	})
+
+	if err != nil {
+		return nil, err
+	}
+
+	return &types.UserInfoResp{
+		UserId:   userResp.Id,
+		Nickname: userResp.Nickname,
 	}, nil
 }
 
